@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            // TODO: Add code to check answers to questions
+            function ansChecker(correct, element) {
+                if(correct) {
+                    document.getElementById(element).innerHTML = "Correct!";
+                    event.target.style.backgroundColor = "green";
+                }
+                else {
+                    document.getElementById(element).innerHTML = "Incorrect!";
+                    event.target.style.backgroundColor = "red";
+                }
+            }
+
+            function resetButton() {
+                var buttons = document.querySelectorAll(".button")
+                buttons.forEach(function (button) {
+                    button.classList.remove("incorrect");
+                    button.classList.remove("correct");
+                    button.style.backgroundColor = "";
+                })
+            }
+
+            function getAnswer() {
+                resetButton();
+                if (event.target.id == "correct") {
+                    event.target.classList.add('correct');
+                    ansChecker(true, "first");
+                } else {
+                    event.target.classList.add('incorrect');
+                    ansChecker(false, "first");
+                }
+            }
+
+
+            document.addEventListener('DOMContentLoaded', function(event) {
+                var buttons = document.querySelectorAll(".button");
+                buttons.forEach(function (button) {
+                    button.addEventListener("click", getAnswer);
+                });
+
+                inputBox = document.querySelector('input');
+                checkButton = document.querySelector('#check');
+                checkButton.addEventListener("click", function (evt) {
+                    if (inputBox.value.toLowerCase() == "ab positive") {
+                        ansChecker(true, "second");
+                        document.querySelector("#box").style.backgroundColor = "green";
+                    }
+                    else {
+                        ansChecker(false, "second");
+                        document.querySelector("#box").style.backgroundColor = "red";
+                    }
+
+                });
+            });
+
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <!-- TODO: Add multiple choice question here -->
+                 <h3>Which blood type is the universal donor?</h3>
+                 <h2 id="first"></h2>
+                 <button class="button">O posetive</button>
+                 <button class="button" id="correct">O negative</button>
+                 <button class="button">AB posetive</button>
+                 <button class="button">AB negative</button>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <!-- TODO: Add free response question here -->
+                 <h3>Which blood type is known as the universal recipient?</h3>
+                 <h2 id="second"></h2>
+                 <input type="text" id="box">
+                 <button id="check" class="input">Check!</button>
+            </div>
+        </div>
+    </body>
+</html>
